@@ -67,3 +67,10 @@ end
      post.puts "---"
    end
   end
+
+desc "deploy"
+task :deploy do
+  puts "Publishing website"
+  sh "rsync -ruP --delete ./_site/* root@andrewfree.com:/srv/www/jumpshuffle.com/public_html/"
+  puts "Website is now uploaded"
+end
