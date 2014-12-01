@@ -70,7 +70,10 @@ end
 
 desc "deploy"
 task :deploy do
+  sh "jekyll build"
   puts "Publishing website"
   sh "rsync -ruP --delete ./_site/* root@andrewfree.com:/srv/www/jumpshuffle.com/public_html/"
+  sh "cp ./_posts/* ~/Dropbox/jumpshuffle/posted/"
+  sh "growlnotify -m 'Site updated'"
   puts "Website is now uploaded"
 end
