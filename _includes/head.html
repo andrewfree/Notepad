@@ -72,6 +72,100 @@
         });
     </script>{% endif %}
 
+{% if page.beta %}
+
+    <link href="http://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet" type="text/css">
+<link href="{{ site.url }}/assets/css/style-exp.css" rel="stylesheet" type="text/css">
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <!-- // <script src="http://localhost:80/newsblur/js/view.js"></script> -->
+    <script type="text/javascript" src="{{ site.url }}/assets/js/jquery.endless-scroll.js"></script>
+  <style type="text/css" media="screen">
+    /** { margin: auto; }*/
+    /*body { margin: 20px 0; background: #abc; color: #111; font-family: Helvetica, Arial, Verdana, 'Lucida Grande', sans-serif; }*/
+    /*h1, h3, p { text-align: center; }*/
+    div.example { padding: 20px; margin: 10px auto; background: #bcd; width: 750px; }
+    div.example h3 { margin-bottom: 10px; }
+    ul, ol { padding: 0; }
+    li { background-color: #909090 }
+    #list { width: 1000px; height: 450px; margin: 10px;overflow-y: scroll; }
+    #images { width: 600px; height: 550px; overflow-x: hidden; text-align: center; list-style: none; }
+    .endless_scroll_loader { position: fixed; top: 10px; right: 20px; }
+  </style>
+
+  <script type="text/javascript" charset="utf-8">
+
+// var return_first = function () {
+//     var tmp = null;
+//     $.ajax({
+//         'async': false,
+//         'type': "POST",
+//         'global': false,
+//         'dataType': 'html',
+//         'url': "/feed",
+//         'data': { 'request': "", 'target': 'arrange_url', 'method': 'method_target' },
+//         'success': function (data) {
+//             tmp = data;
+//         }
+//     });
+//     return tmp;
+// }();
+
+
+function map_test(i) {
+    var return_first = function () {
+        var tmp = null;
+        $.ajax({
+        'async': false,
+        'type': "POST",
+        'contentType': 'application/json',
+        'url': "/feed",
+        'data': JSON.stringify({"index":i}),
+        'success': function (data) {
+            tmp = data;
+        }
+        });
+            return tmp;
+        }();
+        return return_first;
+  //   var tmp = null;
+  //   var payload = {"index":i};
+  //   $.ajax("/feed", {
+  //     data: JSON.stringify(payload),
+  //     contentType : "application/json",
+  //     type : "POST"
+  //   })
+  //   .done(function( data ) {
+  //     tmp = data;
+  //     // console.log(data);
+  //   });
+  // return tmp
+}
+
+jQuery(document).ready(function ($) {
+      $('#list').endlessScroll({
+        fireOnce: false,
+        insertBefore: "#list div:first",
+        insertAfter: "#list div:last",
+        content: function(i, p, dir) {
+          console.log(i, p, dir)
+          var title = map_test(i);
+          // console.log();
+          return '<li class="grow">' + JSON.parse(title)["title"] + '<br>'+ JSON.parse(title)["links"] + '</li>'
+        },
+          callback: function(p){
+    // alert("test");
+  },
+        ceaseFire: function(i) {
+          if (i >= 10) {
+            return true;
+          }
+        },
+        intervalFrequency: 5
+      });
+});
+  </script>
+    
+{% endif%}
 
 <!-- Icons -->
 <!-- 16x16 -->

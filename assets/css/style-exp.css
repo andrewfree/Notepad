@@ -1,0 +1,13 @@
+.grow {
+    height: 40px; /* Origional height */
+    /*width: 22%; /* Origional width */
+    margin: 5px 1% 5px 1%; /* Just for presentation (Not required) */
+    /*/*float: left;  Just for presentation (Not required) */
+    position: relative; /* Just for presentation (Not required) */
+    overflow: hidden;
+    transition:height 0.5s; /* Animation time */
+    -webkit-transition:height 0.35s; /* For Safari */
+}
+.grow:hover {
+    height: 60px; /* This is the height on hover */
+}
